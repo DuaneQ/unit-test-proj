@@ -14,7 +14,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-
-// const [sorting, setSorting] = useState({column: "name", order: 'asc'});
-// const columns = ['name', 'continent', 'Population', 'Flag'];

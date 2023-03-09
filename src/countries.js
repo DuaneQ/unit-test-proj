@@ -12,64 +12,33 @@ function Countries() {
   const sortByName = () => {
     const sorted = [...data].sort((a, b) => {
       if (nameOrder === 'asc') {
-        if (b.name.common > a.name.common) {
-          return -1;
-        }
-        if (b.name.common > a.name.common) {
-          return 1;
-        }
-        return 0;
+        return b.name.common > a.name.common ? -1 : b.name.common < a.name.common ? 1 : 0
       } else {
-        if (b.name.common < a.name.common) {
-          return -1;
-        }
-        if (b.name.common < a.name.common) {
-          return 1;
-        }
-        return 0;
+        return b.name.common < a.name.common ? -1 : b.name.common > a.name.common ? 1 : 0
       }
     });
     setData(sorted);
-    let newOrder = nameOrder === 'asc' ? 'desc' : 'asc';
-    setNameOrder(newOrder);
+    setNameOrder(nameOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const sortByContinent = () => {
     const sorted = [...data].sort((a, b) => {
       if (contOrder === 'asc') {
-        if (b.continents > a.continents) {
-          return -1;
-        }
-        if (b.continents > a.continents) {
-          return 1;
-        }
-        return 0;
+        return b.continents > a.continents ? -1 : b.continents < a.continents ? 1 : 0
       } else {
-        if (b.continents < a.continents) {
-          return -1;
-        }
-        if (b.continents < a.continents) {
-          return 1;
-        }
-        return 0;
+        return b.continents < a.continents ? -1 : b.continents > a.continents ? 1 : 0
       }
     });
     setData(sorted);
-    let newOrder = contOrder === 'asc' ? 'desc' : 'asc';
-    setContOrder(newOrder);
+    setContOrder(contOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const sortByPopulation = () => {
-    const sorted = [...data].sort((a, b) => {
-      if (popOrder === 'asc') {
-        return a.population - b.population;
-      } else {
-        return b.population - a.population;
-      }
-    });
+    const sorted = [...data].sort((a, b) =>
+      popOrder === 'asc' ? a.population - b.population : b.population - a.population
+    );
     setData(sorted);
-    let newOrder = popOrder === 'asc' ? 'desc' : 'asc';
-    setPopOrder(newOrder);
+    setPopOrder(popOrder === 'asc' ? 'desc' : 'asc');
   };
 
   const [data, setData] = useState([]);
@@ -88,26 +57,35 @@ function Countries() {
         <thead>
           <tr>
             <th onClick={sortByName}>
-              Name
-              {nameOrder === 'asc' && <IoCaretDown />}
-              {nameOrder === 'desc' && <IoCaretUp />}
+              <div className='column-title'>
+                <div>
+                  Name
+                </div>
+                {nameOrder === 'asc' ? <IoCaretDown /> : <IoCaretUp />}
+              </div>
             </th>
             <th onClick={sortByContinent}>
-              Continent
-              {contOrder === 'asc' && <IoCaretDown />}
-              {contOrder === 'desc' && <IoCaretUp />}
+              <div className='column-title'>
+                <div>
+                  Continents
+                </div>
+                {contOrder === 'asc' ? <IoCaretDown /> : <IoCaretUp />}
+              </div>
             </th>
             <th onClick={sortByPopulation}>
-              Population
-              {popOrder === 'asc' && <IoCaretDown />}
-              {popOrder === 'desc' && <IoCaretUp />}
+              <div className='column-title'>
+                <div>
+                  Population
+                </div>
+                {popOrder === 'asc' ? <IoCaretDown /> : <IoCaretUp />}
+              </div>
             </th>
             <th>Flag</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((country) => (
-            <tr key={country.flag}>
+          {data.map((country, i) => (
+            <tr key={country.flag + i}>
               <td>{country.name.common}</td>
               <td>{country.continents}</td>
               <td>{country.population}</td>

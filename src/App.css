@@ -40,3 +40,8 @@ form td:last-child {
 form * {
   font-size: 28px;
 }
+
+.column-title {
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
